@@ -71,7 +71,7 @@ public class whaleFlock : MonoBehaviour
         rb.velocity = transform.forward * speed;
 
         // Randomly rotate the whale
-        if (Random.Range(0, 100) < 2)  // 2% chance to initiate a turn
+        if (Random.Range(0, 100) < 1)  // 2% chance to initiate a turn
         {
             // Apply torque for rotation
             rb.AddTorque(Vector3.up * Random.Range(-rotationSpeed, rotationSpeed));
@@ -101,7 +101,7 @@ public class whaleFlock : MonoBehaviour
         if (other == water)
         {
             // Start the coroutine to enable the script after 1 second
-            StartCoroutine(EnableScriptAfterDelay(3.0f));
+            StartCoroutine(EnableScriptAfterDelay(5.0f));
         }
     }
 
