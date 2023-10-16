@@ -1554,6 +1554,7 @@ GameObject:
   - component: {fileID: 5375439541968590812}
   - component: {fileID: 5554025435494166581}
   - component: {fileID: -6063654298712684023}
+  - component: {fileID: 42324126962911708}
   m_Layer: 0
   m_Name: EmperorAngelfish
   m_TagString: Untagged
@@ -1569,7 +1570,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4743052802435059046}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0, y: 0, z: 0}
+  m_LocalPosition: {x: -0, y: 0.009, z: 0.005}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1612,9 +1613,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eee827e5239f6a84089a65d8fb38d7a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0.1
-  rotationSpeed: 0.02
-  neighbourDistance: 0.1
+  speed: 0.5
+  rotationSpeed: 0.5
+  neighbourDistance: 0.5
+--- !u!65 &42324126962911708
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4743052802435059046}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2, y: 1.5, z: 0.5}
+  m_Center: {x: -0.5, y: 1, z: 0.5}
 --- !u!1 &4857721369924528738
 GameObject:
   m_ObjectHideFlags: 0
