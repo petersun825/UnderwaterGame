@@ -7,6 +7,7 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine.UI;
+using static Unity.Burst.Intrinsics.X86.Avx;
 
 public class APICall : MonoBehaviour
 {
@@ -15,7 +16,7 @@ public class APICall : MonoBehaviour
 
     // Declare JsonString Class for turning JSON back to string
     public JsonString JsonString;
-
+    public GameObject ExportTextArea;
     private readonly string baseUri = "https://generativelanguage.googleapis.com/v1beta3/models/text-bison-001:generateText?key=";
 
     public GameObject APIKeyObject; // Drag your APIKeyObject here in the inspector
@@ -28,7 +29,7 @@ public class APICall : MonoBehaviour
         key = apiKeyComponent.key;
 
         // Assign text to output area of TMP Input field
-        outputArea = GameObject.Find("OutputArea").GetComponent<TMP_InputField>();
+        outputArea = ExportTextArea.GetComponent< TMP_InputField> ();
 
         // Assign OnButtonPress to the button's onClick event
         //GameObject.Find("GetButton").GetComponent<Button>().onClick.AddListener(OnButtonPress);
