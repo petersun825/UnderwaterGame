@@ -10,9 +10,9 @@ public class PlasticManager : MonoBehaviour
     [SerializeField] public static int tankSize = 50;
   
 
-    static int numFish = 50;
-    static int numBin = 50;
-    static int numStuff = 50;
+    static int numFish = 400;
+    static int numBin = 150;
+    static int numStuff = 150;
     public static GameObject[] allFish = new GameObject[numFish];
     public static GameObject[] allBin = new GameObject[numBin];
     public static GameObject[] allStuff = new GameObject[numStuff];
