@@ -93,7 +93,8 @@ public class whaleFlock : MonoBehaviour
 
     void OnCollision(TerrainCollider terrain)
     {
-        rb.AddTorque(Vector3.left * 90);
+        //transform.rotation *= Quaternion.Euler(0, 90, 0);
+        rb.AddTorque(Vector3.up * 30);
     }//Random.Range(-rotationSpeed, rotationSpeed);
 
     void OnTriggerEnter(Collider other)
@@ -102,7 +103,7 @@ public class whaleFlock : MonoBehaviour
         if (other == water)
         {
             // Start the coroutine to enable the script after 1 second
-            StartCoroutine(EnableScriptAfterDelay(6.0f));
+            StartCoroutine(EnableScriptAfterDelay(7.0f));
         }
     }
 

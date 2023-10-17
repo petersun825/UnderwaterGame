@@ -11,16 +11,19 @@ public class CorralManager : MonoBehaviour
     [Tooltip("Third GameObject to be placed")]
     public GameObject objectThree;
 
-    // Terrain Collider
+    // Terrain and Water Colliders
     private TerrainCollider terrainCollider;
+    private BoxCollider waterCollider;
     private const int numberOfObjects = 150;
 
     private void Start()
     {
         // Get the terrain collider
         terrainCollider = GameObject.FindObjectOfType<TerrainCollider>();
+        // Get the water collider
+        waterCollider = GameObject.Find("WaterCollider").GetComponent<BoxCollider>();
 
-        if (terrainCollider != null)
+        if (terrainCollider != null && waterCollider != null)
         {
             // Start coroutine to place objects
             StartCoroutine(PlaceObjects());
@@ -49,8 +52,12 @@ public class CorralManager : MonoBehaviour
         // Get the position on the terrain below the random position
         if (Physics.Raycast(randomPosition, Vector3.down, out RaycastHit hit, Mathf.Infinity, LayerMask.GetMask("Terrain")))
         {
-            // Instantiate object at hit position
-            Instantiate(objectToPlace, hit.point, Quaternion.identity);
+            // Check if the hit point is within the water collider
+            if (waterCollider.bounds.Contains(hit.point))
+            {
+                // Instantiate object at hit position
+                Instantiate(objectToPlace, hit.point+new Vector3(0,0.5f,0), Quaternion.identity);
+            }
         }
     }
 }
