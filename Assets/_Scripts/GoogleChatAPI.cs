@@ -8,6 +8,8 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine.UI;
 using static Unity.Burst.Intrinsics.X86.Avx;
+using Newtonsoft.Json.Linq;
+//using static UnityEditor.Rendering.CameraUI;
 
 public class GoogleChatAPI : MonoBehaviour
 {
@@ -23,6 +25,8 @@ public class GoogleChatAPI : MonoBehaviour
     public string message;
     public GameObject APIKeyObject; // Drag your APIKeyObject here in the inspector
     private string key;
+    //assign public inputfield to take text from keyboard
+    public GameObject TMP_InputField;
 
     void Start()
     {
@@ -38,9 +42,8 @@ public class GoogleChatAPI : MonoBehaviour
         //GameObject.Find("GetButton").GetComponent<Button>().onClick.AddListener(OnButtonPress);
     }
     // Method to assign the text of a TMP_InputField GameObject to 'message'
-    public void AssignMessageFromInputField(GameObject inputFieldObject)
+    public void AssignMessageFromInputField(TMP_InputField inputField)
     {
-        TMP_InputField inputField = inputFieldObject.GetComponent<TMP_InputField>();
         if (inputField != null)
         {
             message = inputField.text;
@@ -48,10 +51,11 @@ public class GoogleChatAPI : MonoBehaviour
         }
         else
         {
-            Debug.LogError("TMP_InputField component not found on the GameObject");
+            Debug.LogError("TMP_InputField is null");
         }
     }
-    public void OnButtonPress()
+
+        public void OnButtonPress()
     {
         // Concat URL to include API key
         string uri = baseUri + key;
@@ -61,7 +65,7 @@ public class GoogleChatAPI : MonoBehaviour
         {
             { "context", "You are an expert in ocean plastic pollution. Talk to me like I'm a high school level student." },
             { "examples", new List<object>() },
-            { "messages", new List<object> { new Dictionary<string, string> { { "content", "NEXT REQUEST" } } } }
+            { "messages", new List<object> { new Dictionary<string, string> { { "content", message } } } }
         };
 
         // Payload data
@@ -81,7 +85,17 @@ public class GoogleChatAPI : MonoBehaviour
         // Start coroutine
         StartCoroutine(PostRequest(uri, jsonPayload));
     }
+    public string convertJson(string jsonResponse)
+    {
+        JObject parsedResponse = JObject.Parse(jsonResponse);
+        JArray candidates = (JArray)parsedResponse["candidates"];
 
+        // Extract the 'content' of the first candidate
+        string messageSaid = (string)candidates[0]["content"];
+        return messageSaid;
+
+
+    }
     IEnumerator PostRequest(string uri, string jsonPayload)
     {
         byte[] jsonPayloadBytes = Encoding.UTF8.GetBytes(jsonPayload);
@@ -115,7 +129,7 @@ public class GoogleChatAPI : MonoBehaviour
             }
             else
             {
-                contentText.text = JsonString.convertJson(webRequest.downloadHandler.text);
+                contentText.text = convertJson(webRequest.downloadHandler.text);
                 Debug.Log("Received: " + webRequest.downloadHandler.text);
             }
         }
