@@ -12,7 +12,8 @@ using static Unity.Burst.Intrinsics.X86.Avx;
 public class APICall : MonoBehaviour
 {
     // Declare outputArea
-    TMP_InputField outputArea;
+    //TMP_InputField outputArea;
+    public TMP_Text contentText;
 
     // Declare JsonString Class for turning JSON back to string
     public JsonString JsonString;
@@ -29,7 +30,8 @@ public class APICall : MonoBehaviour
         key = apiKeyComponent.key;
 
         // Assign text to output area of TMP Input field
-        outputArea = ExportTextArea.GetComponent< TMP_InputField> ();
+        //outputArea = ExportTextArea.GetComponent<TMP_InputField> ();
+        contentText = ExportTextArea.GetComponent<TMP_Text>();
 
         // Assign OnButtonPress to the button's onClick event
         //GameObject.Find("GetButton").GetComponent<Button>().onClick.AddListener(OnButtonPress);
@@ -91,7 +93,7 @@ public class APICall : MonoBehaviour
             }
             else
             {
-                outputArea.text = JsonString.convertJson(webRequest.downloadHandler.text);
+                contentText.text = JsonString.convertJson(webRequest.downloadHandler.text);
                 Debug.Log("Received: " + webRequest.downloadHandler.text);
             }
         }
